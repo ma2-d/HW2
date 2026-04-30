@@ -1,0 +1,58 @@
+package it.uniroma3.diadia.comandi;
+
+import it.uniroma3.diadia.IO;
+import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+public class ComandoPosa implements Comando {
+	String nomeAttrezzo;
+	private IO io;
+	static final private String name = "posa";
+	/*
+	 * Comando "Posa" che toglie un oggetto dalla borsa del
+	 * giocatore e lo lascia nella stanza corrente
+	 */
+	public ComandoPosa() {
+		
+	}
+	
+	@Override
+	public void esegui(Partita partita) {
+		if(partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
+			Attrezzo attrezzoPosato;
+			attrezzoPosato = partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
+			if(partita.getStanzaCorrente().addAttrezzo(attrezzoPosato))
+				this.io.mostraMessaggio("Oggetto posato nella stanza");
+			else
+				this.io.mostraMessaggio("raggiunto massimo numero oggetti di oggetti in stanza");
+		}
+		else
+			this.io.mostraMessaggio(nomeAttrezzo + " non e' presente nella borsa");
+		
+	}
+
+	@Override
+	public void setParametro(String parametro) {
+		this.nomeAttrezzo = parametro;
+		
+	}
+
+	@Override
+	public String getNome() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
+	@Override
+	public String getParametro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setIo(IO io) {
+		// TODO Auto-generated method stub
+		this.io = io;
+	}
+
+}
