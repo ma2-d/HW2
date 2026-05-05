@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -16,7 +17,7 @@ public class ComandoPosaTest {
 	private Attrezzo a1;
 	private Partita p;
 	private ComandoPosa c;
-
+	private Attrezzo a2;
 	
 	@BeforeEach
 	void setUp() {
@@ -27,6 +28,7 @@ public class ComandoPosaTest {
 		c.setIo(new IOConsole());
 		p.getGiocatore().getBorsa().addAttrezzo(a1);
 		p.setStanzaCorrente(s1);
+		a2 = new Attrezzo("a2",200);
 	}
 	
 	@Test
@@ -42,4 +44,27 @@ public class ComandoPosaTest {
 		assertFalse(s1.hasAttrezzo("a2"));
 	}
 	
+	@Test
+	void testComandoPosa3() {
+		String[] s = {"posa a1","Oggetto posato nella stanza"};
+		IOSimulator io = new IOSimulator(s);
+		p.getGiocatore().getBorsa().addAttrezzo(a1);
+		c.setIo(io);
+		p.setStanzaCorrente(s1);
+		c.setParametro("a1");
+		c.esegui(p);
+		assertEquals("Oggetto posato nella stanza",io.getUltimoMessaggio());
+	}
+	
+	@Test
+	void testComandoPosa4() {
+		String[] s = {"posa a2","a2 non e' presente nella borsa"};
+		IOSimulator io = new IOSimulator(s);
+		p.getGiocatore().getBorsa().addAttrezzo(a2);
+		c.setIo(io);
+		p.setStanzaCorrente(s1);
+		c.setParametro("a2");
+		c.esegui(p);
+		assertEquals("a2 non e' presente nella borsa",io.getUltimoMessaggio());
+	}
 }

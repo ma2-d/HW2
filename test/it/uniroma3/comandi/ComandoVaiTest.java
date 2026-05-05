@@ -1,11 +1,15 @@
 package it.uniroma3.comandi;
 
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.security.PKCS12Attribute;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.comandi.ComandoVai;
@@ -42,5 +46,29 @@ public class ComandoVaiTest {
 		c.setParametro("nord");
 		c.esegui(p);
 		assertNotEquals(s2,p.getStanzaCorrente());
+	}
+	
+	@Test
+	void testComandoVaiParametroNull() {
+
+	    IOSimulator io = new IOSimulator(new String[]{});
+	    p.setStanzaCorrente(s1);
+	    c.setParametro(null);
+	    c.setIo(io);
+	    c.esegui(p);
+	    assertEquals("Dove vuoi andare ?", io.getUltimoMessaggio());
+	}
+	
+	@Test
+	void testComandoVai3() {
+		String[] s = {"Direzione inesistente","est"};
+	    IOSimulator io = new IOSimulator(s);
+	    p.setStanzaCorrente(s1);
+	    Stanza s3 = null;
+	    s1.impostaStanzaAdiacente("nord", s3);
+	    c.setParametro("nord");
+	    c.setIo(io);
+	    c.esegui(p);
+	    assertEquals("Direzione inesistente", io.getUltimoMessaggio());
 	}
 }

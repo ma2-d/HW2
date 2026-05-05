@@ -2,6 +2,7 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendi implements Comando {
@@ -18,23 +19,47 @@ public class ComandoPrendi implements Comando {
 	 * corrente e lo inserisce nella borsa del giocatore
 	 */
 	
-	@Override
-	public void esegui(Partita partita) {
-		if(partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
-			Attrezzo attrezzoPreso;
-			attrezzoPreso = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-			if(partita.getStanzaCorrente().removeAttrezzo(nomeAttrezzo) && 
-			   partita.getGiocatore().getBorsa().addAttrezzo(attrezzoPreso))
-				this.io.mostraMessaggio("Oggetto aggiunto alla borsa");
-			else {
-				partita.getStanzaCorrente().addAttrezzo(attrezzoPreso);
-				this.io.mostraMessaggio("raggiunto massimo peso o numero oggetti");
-			}
-		}
-		else
-			this.io.mostraMessaggio(nomeAttrezzo + " non e' presente nella stanza");
+	//@Override
+	//public void esegui(Partita partita) {
+		//if(partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
+			//Attrezzo attrezzoPreso;
+			//attrezzoPreso = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			//if(partita.getStanzaCorrente().removeAttrezzo(nomeAttrezzo) && 
+			  // partita.getGiocatore().getBorsa().addAttrezzo(attrezzoPreso))
+				//this.io.mostraMessaggio("Oggetto aggiunto alla borsa");
+			//else {
+				//partita.getStanzaCorrente().addAttrezzo(attrezzoPreso);
+				//this.io.mostraMessaggio("raggiunto massimo peso o numero oggetti");
+			//}
+		//}
+		//else
+			//this.io.mostraMessaggio(nomeAttrezzo + " non e' presente nella stanza");
 	
 		
+	//}
+	@Override
+	public void esegui(Partita partita) {
+
+	    Stanza stanza = partita.getStanzaCorrente();
+
+	    if (!stanza.hasAttrezzo(nomeAttrezzo)) {
+	        io.mostraMessaggio(nomeAttrezzo + " non e' presente nella stanza");
+	        return;
+	    }
+
+	    Attrezzo attrezzo = stanza.getAttrezzo(nomeAttrezzo);
+
+	    boolean preso = partita.getGiocatore()
+	                            .getBorsa()
+	                            .addAttrezzo(attrezzo);
+
+	    if (!preso) {
+	        io.mostraMessaggio("raggiunto massimo peso o numero oggetti");
+	        return;
+	    }
+
+	    stanza.removeAttrezzo(nomeAttrezzo);
+	    io.mostraMessaggio("Oggetto aggiunto alla borsa");
 	}
 
 	@Override

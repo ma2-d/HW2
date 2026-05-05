@@ -20,13 +20,17 @@ public class ComandoVai implements Comando {
 
 	@Override
 	public void esegui(Partita partita) {
-		if(direzione==null)
+		if(direzione==null) {
 			this.io.mostraMessaggio("Dove vuoi andare ?");
+			return;
+		}
 		Stanza prossimaStanza = null;
 		prossimaStanza = partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-		if (prossimaStanza == null)
+		if (prossimaStanza == null) {
 			this.io.mostraMessaggio("Direzione inesistente");
-		else {
+			return;
+		}
+			else {
 			partita.getGiocatore().setCfu(partita.getGiocatore().getCfu() - 1);
 			partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 		}

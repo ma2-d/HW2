@@ -21,14 +21,19 @@ public class ComandoPosa implements Comando {
 		if(partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
 			Attrezzo attrezzoPosato;
 			attrezzoPosato = partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			if(partita.getStanzaCorrente().addAttrezzo(attrezzoPosato))
+			if(partita.getStanzaCorrente().addAttrezzo(attrezzoPosato)) {
 				this.io.mostraMessaggio("Oggetto posato nella stanza");
-			else
+				return;
+			}
+			else {
 				this.io.mostraMessaggio("raggiunto massimo numero oggetti di oggetti in stanza");
+				return;
+			}		
 		}
-		else
+		else {
 			this.io.mostraMessaggio(nomeAttrezzo + " non e' presente nella borsa");
-		
+				return;
+		}
 	}
 
 	@Override

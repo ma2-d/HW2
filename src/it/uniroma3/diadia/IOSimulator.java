@@ -38,5 +38,10 @@ public class IOSimulator implements IO {
 	public String[] getOutput() {
 		return output;
 	}
+	
+    public String getUltimoMessaggio() {
+        if (indiceOutput == 0) return null;
+        return output[indiceOutput - 1];
+    }
 
 }
