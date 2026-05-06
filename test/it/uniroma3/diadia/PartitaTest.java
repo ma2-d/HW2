@@ -74,6 +74,7 @@ class PartitaTest {
 		DiaDia d = new DiaDia(io);
 		d.gioca();
 		assertEquals("Grazie di aver giocato!",io.getUltimoMessaggio());
+		assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Hai vinto!"));
 	}
 	@Test
 	void testDiAccettazione2() {
@@ -92,13 +93,4 @@ class PartitaTest {
 	    d.gioca();
 	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Dove vuoi andare ?"));
 	}
-	@Test 
-	void testDiAccettazione4() {
-	    String[] s = {"vai nord"};
-	    IOSimulator io = new IOSimulator(s);
-	    DiaDia d = new DiaDia(io);
-	    d.gioca();
-	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Hai vinto!"));
-	}
-	
 }
