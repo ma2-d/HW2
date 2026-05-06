@@ -75,4 +75,22 @@ class PartitaTest {
 		d.gioca();
 		assertEquals("Grazie di aver giocato!",io.getUltimoMessaggio());
 	}
+	//@Test
+	//void testDiAccettazione2() {
+	   // String[] s = {"vai fff"};
+	   // IOSimulator io = new IOSimulator(s);
+	   // DiaDia d = new DiaDia(io);
+	   // d.gioca();
+	   // assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Direzione inesistente"));
+	//}
+	
+	@Test 
+	void testDiAccettazione3() {
+	    String[] s = {"vai"};
+	    IOSimulator io = new IOSimulator(s);
+	    DiaDia d = new DiaDia(io);
+	    d.gioca();
+	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Dove vuoi andare ?"));
+	}
+	
 }

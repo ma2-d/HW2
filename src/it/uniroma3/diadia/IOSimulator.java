@@ -32,7 +32,7 @@ public class IOSimulator implements IO {
 			indiceInput++;
 			return s;
 		}
-		return null;
+		return "";
 	}
 	
 	public String[] getOutput() {
