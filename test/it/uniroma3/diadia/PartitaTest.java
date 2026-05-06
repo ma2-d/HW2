@@ -81,7 +81,7 @@ class PartitaTest {
 	    IOSimulator io = new IOSimulator(s);
 	    DiaDia d = new DiaDia(io);
 	    d.gioca();
-	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Direzione inesistente"));
+	   assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Direzione inesistente"));
 	}
 	
 	@Test 
@@ -91,6 +91,14 @@ class PartitaTest {
 	    DiaDia d = new DiaDia(io);
 	    d.gioca();
 	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Dove vuoi andare ?"));
+	}
+	@Test 
+	void testDiAccettazione4() {
+	    String[] s = {"vai nord"};
+	    IOSimulator io = new IOSimulator(s);
+	    DiaDia d = new DiaDia(io);
+	    d.gioca();
+	    assertTrue(java.util.Arrays.asList(io.getOutput()).contains("Hai vinto!"));
 	}
 	
 }
