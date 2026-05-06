@@ -57,4 +57,13 @@ class PartitaTest {
 		game.getGiocatore().setCfu(0);
 		assertTrue(game.isFinita());
 	}
+	
+	@Test
+	void testDiAccettazione() {
+		String[] s = {"fine"};
+		IOSimulator io = new IOSimulator(s);
+		DiaDia d = new DiaDia(io);
+		d.gioca();
+		assertEquals("Grazie di aver giocato!",io.getUltimoMessaggio());
+	}
 }

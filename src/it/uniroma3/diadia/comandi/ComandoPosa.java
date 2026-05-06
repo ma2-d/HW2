@@ -51,7 +51,7 @@ public class ComandoPosa implements Comando {
 	@Override
 	public String getParametro() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.nomeAttrezzo;
 	}
 
 	@Override
