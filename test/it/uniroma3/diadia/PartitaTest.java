@@ -66,4 +66,13 @@ class PartitaTest {
 		d.gioca();
 		assertEquals("Grazie di aver giocato!",io.getUltimoMessaggio());
 	}
+	
+	@Test
+	void testDiAccettazione1() {
+		String[] s = {"vai nord"};
+		IOSimulator io = new IOSimulator(s);
+		DiaDia d = new DiaDia(io);
+		d.gioca();
+		assertEquals("Grazie di aver giocato!",io.getUltimoMessaggio());
+	}
 }
